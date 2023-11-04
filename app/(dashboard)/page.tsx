@@ -21,7 +21,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className='grid grid-cols-4 p-16'>
+    <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-16'>
       {banners.map((item) => {
         const shop = shopList?.find((shop) => shop.id === item.shopId);
         return <Card key={item.id} banner={item} shopName={shop?.name || ""} />;
