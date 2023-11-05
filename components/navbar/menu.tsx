@@ -1,11 +1,11 @@
 import React from "react";
 import User from "./user";
 import { Button } from "@/components/ui/button";
-// import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/hooks/use-user";
 import LabelMenu from "./label-menu";
 
 export default function Menu() {
-  // const { logoutUser } = useUser();
+  const { logoutUser } = useUser();
 
   return (
     <div className='flex flex-col gap-4 items-start'>
@@ -14,7 +14,7 @@ export default function Menu() {
       <LabelMenu path='/edit-profile'>Edit profile</LabelMenu>
       <LabelMenu path='/contact-us'>Contact us</LabelMenu>
       <LabelMenu path='/term-and-conditions'>Term and conditions</LabelMenu>
-      <div onClick={() => {}}>
+      <div onClick={logoutUser}>
         <LabelMenu path='#'>Log out</LabelMenu>
       </div>
       <Button className='text-white text-sm h-12 mt-12 w-full'>Contact</Button>

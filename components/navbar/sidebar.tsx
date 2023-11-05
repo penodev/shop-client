@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import useSidebar from "@/hooks/use-sidebar";
-// import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/hooks/use-user";
 import Login from "./login";
 import Menu from "./menu";
 import { usePathname } from "next/navigation";
@@ -10,8 +10,7 @@ import { usePathname } from "next/navigation";
 type SidebarProps = {};
 
 export default function Sidebar({}: SidebarProps) {
-  // const { user } = useUser();
-  const user = true;
+  const { user } = useUser();
   const pathname = usePathname();
   const sidebar = useSidebar();
   const onChange = (open: boolean) => {
@@ -23,7 +22,7 @@ export default function Sidebar({}: SidebarProps) {
     sidebar.onClose();
   }, [pathname]);
   return (
-    <div>
+    <div className=''>
       <Sheet open={sidebar.isOpen} onOpenChange={onChange}>
         <SheetContent className='overflow-auto'>
           <SheetHeader>

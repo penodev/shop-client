@@ -1,6 +1,5 @@
 "use client";
 
-import Card from "@/components/ui-components/card";
 import { BannerType, getBanner } from "@/services/api/banner";
 import { ShopType, getShopById } from "@/services/api/shop";
 import Image from "next/image";
@@ -9,12 +8,14 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import useSidebar from "@/hooks/use-sidebar";
 
 type ShopPageProps = {
   params: { id: string };
 };
 
 export default function ShopPage({ params }: ShopPageProps) {
+  const sidebar = useSidebar();
   const [banner, setBanner] = useState<BannerType>();
   const [shop, setShop] = useState<ShopType>();
 
@@ -50,7 +51,7 @@ export default function ShopPage({ params }: ShopPageProps) {
           center={[shop.lat, shop.lng]}
           zoom={12}
           scrollWheelZoom={false}
-          className='h-[40vw] w-1/2'
+          className={`h-[40vw] w-1/2 ${sidebar.isOpen && "hidden"}`}
           //   style={{ margin: "auto", width: "100%", height: "600px" }}
         >
           <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />

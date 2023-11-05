@@ -5,22 +5,27 @@ import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-// import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/hooks/use-user";
 import LabelMenu from "./label-menu";
 import toast from "react-hot-toast";
 
 type Props = {};
 
 export default function Login({}: Props) {
-  // const { loginUser, forgetPassword } = useUser();
+  const { loginUser, register } = useUser();
   const router = useRouter();
+  const [isLoginVariant, setIsLoginVariant] = useState(true);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  const handleLogin = async () => {
+  const handleSubmit = async () => {
     if (!!email && !!password) {
-      // loginUser(email, password);
+      if (isLoginVariant) {
+        loginUser(email, password);
+      } else {
+        register(email, password);
+      }
     }
   };
 
@@ -55,40 +60,41 @@ export default function Login({}: Props) {
           placeholder='Password'
         />
       </div>
-      <div className='flex justify-between'>
-        <div className='flex items-center space-x-2'>
-          <Checkbox id='terms' />
-          <label
-            htmlFor='terms'
-            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed 
+      {isLoginVariant && (
+        <div className='flex justify-between'>
+          <div className='flex items-center space-x-2'>
+            <Checkbox id='terms' />
+            <label
+              htmlFor='terms'
+              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed 
           peer-disabled:opacity-70 text-fnf-primary'
+            >
+              Remember me
+            </label>
+          </div>
+          <label
+            className='text-sm text-primary cursor-pointer'
+            onClick={handleForgotPassword}
           >
-            Remember me
+            Forgot password?
           </label>
         </div>
-        <label
-          className='text-sm text-primary cursor-pointer'
-          onClick={handleForgotPassword}
+      )}
+      <Button className='text-white text-sm h-12' onClick={handleSubmit}>
+        {isLoginVariant ? "Login" : "Sign up"}
+      </Button>
+      <p className='text-sm'>
+        {isLoginVariant ? "First time using App?" : "Already have an account?"}
+        <span
+          onClick={() => setIsLoginVariant(!isLoginVariant)}
+          className='ml-1 cursor-pointer text-neutral-500 hover:underline'
         >
-          Forgot password?
-        </label>
-      </div>
-      <Button className='text-white text-sm h-12' onClick={handleLogin}>
-        Login
-      </Button>
-      <Button
-        variant='outline'
-        className='text-primary text-sm h-12'
-        onClick={() => router.push("/register")}
-      >
-        Register
-      </Button>
+          {isLoginVariant ? "Create an account" : "Login"}
+        </span>
+      </p>
       <LabelMenu path='/'>Home</LabelMenu>
       <LabelMenu path='term-and-conditions'>Terms and conditions</LabelMenu>
       <LabelMenu path='contact-us'>Contact us</LabelMenu>
-      <Button variant='outline' className='text-primary text-sm h-12'>
-        Telegram
-      </Button>
     </div>
   );
 }

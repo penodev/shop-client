@@ -4,6 +4,7 @@ import ToasterProvider from "@/providers/toaster-provider";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Sidebar from "@/components/navbar/sidebar";
+import UserProvider from "@/providers/user-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,14 +23,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className='h-full flex justify-center font-light'>
           <ToasterProvider />
-          {/* <UserProvider> */}
-          {/* <ModalProvider /> */}
-          <div className='h-full w-full'>
-            <Navbar />
-            <Sidebar />
-            <main className='m-3'>{children}</main>
-          </div>
-          {/* </UserProvider> */}
+          <UserProvider>
+            {/* <ModalProvider /> */}
+            <div className='h-full w-full'>
+              <Navbar />
+              <Sidebar />
+              <main className='m-3'>{children}</main>
+            </div>
+          </UserProvider>
         </div>
       </body>
     </html>
