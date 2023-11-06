@@ -135,7 +135,7 @@ const UserProvider = ({ children }: Props) => {
             "Content-Type": "application/json",
           },
           data: {
-            refresh: refreshToken,
+            refreshToken: refreshToken,
           },
         });
         if (response.status === 200) {
